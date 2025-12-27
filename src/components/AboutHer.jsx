@@ -3,11 +3,11 @@ import Sparkles from './Sparkles';
 
 const AboutHer = () => {
   const lines = [
-    "In your eyes, I found my home 🌟",
-    "Your smile lights up my world ✨",
-    "Every moment with you is magic 💫",
-    "You are my favorite person in the universe 🌙",
-    "Your laugh is my favorite sound 🎵",
+    "tumhari aankhe itni zyada cute hai 👀",
+    "i am in love with those dimples 😊",
+    "kyu ho tum itni lucky mere lie?? 🍀",
+    "mujhe tere lie useful hona accha lagta hai 💕",
+    "I love you urvashi ❤️",
   ];
 
   const containerVariants = {

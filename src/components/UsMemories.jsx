@@ -1,8 +1,25 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import HeartPopup from './HeartPopup';
 
 const UsMemories = () => {
   const [flipped, setFlipped] = useState({});
+  const [heartPopup, setHeartPopup] = useState({ show: false, x: 50, y: 50 });
+
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const touch = e.touches?.[0] || e.changedTouches?.[0];
+    const clientX = touch ? touch.clientX : e.clientX;
+    const clientY = touch ? touch.clientY : e.clientY;
+    
+    const x = (clientX / window.innerWidth) * 100;
+    const y = (clientY / window.innerHeight) * 100;
+    
+    setHeartPopup({ show: true, x, y });
+    setTimeout(() => setHeartPopup({ show: false, x: 50, y: 50 }), 900);
+  };
 
   const memories = [
     {
@@ -27,6 +44,8 @@ const UsMemories = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center py-20 px-4">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-100/50 via-pink-100/50 to-purple-50/50" />
+      
+      <HeartPopup show={heartPopup.show} x={heartPopup.x} y={heartPopup.y} />
       
       <div className="relative z-10 max-w-6xl mx-auto">
         <motion.h2
@@ -96,7 +115,9 @@ const UsMemories = () => {
                     <img
                       src={memory.image}
                       alt={memory.text}
-                      className="w-full h-full object-cover rounded-3xl"
+                      onClick={handleImageClick}
+                      onTouchStart={handleImageClick}
+                      className="w-full h-full object-cover rounded-3xl cursor-pointer touch-manipulation select-none"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 rounded-b-3xl">
                       <p className="text-white font-medium text-lg">{memory.text}</p>

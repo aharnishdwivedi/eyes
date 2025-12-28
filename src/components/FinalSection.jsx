@@ -1,9 +1,26 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import HeartPopup from './HeartPopup';
 
 const FinalSection = () => {
   const [messages, setMessages] = useState([]);
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  const [heartPopup, setHeartPopup] = useState({ show: false, x: 50, y: 50 });
+
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const touch = e.touches?.[0] || e.changedTouches?.[0];
+    const clientX = touch ? touch.clientX : e.clientX;
+    const clientY = touch ? touch.clientY : e.clientY;
+    
+    const x = (clientX / window.innerWidth) * 100;
+    const y = (clientY / window.innerHeight) * 100;
+    
+    setHeartPopup({ show: true, x, y });
+    setTimeout(() => setHeartPopup({ show: false, x: 50, y: 50 }), 900);
+  };
 
   const messageSequence = [
     "Every time I look into your eyes...",
@@ -28,6 +45,8 @@ const FinalSection = () => {
     <section className="relative min-h-screen flex items-center justify-center py-20 px-4 md:px-0 lg:px-0 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-pink-300/40 via-purple-300/40 to-pink-200/40" />
       
+      <HeartPopup show={heartPopup.show} x={heartPopup.x} y={heartPopup.y} />
+      
       <div className="relative z-10 w-full mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
@@ -38,21 +57,11 @@ const FinalSection = () => {
           <motion.img
             src="/images/eyes.jpeg"
             alt="Eyes"
-            className="w-full max-w-full mx-auto rounded-none md:rounded-none lg:rounded-none shadow-2xl glow-purple object-cover"
+            loading="lazy"
+            onClick={handleImageClick}
+            onTouchStart={handleImageClick}
+            className="w-full max-w-full mx-auto rounded-none md:rounded-none lg:rounded-none shadow-2xl glow-purple object-cover cursor-pointer touch-manipulation select-none active:border-pink-400 will-change-transform"
             style={{ maxHeight: '70vh' }}
-            animate={{
-              scale: [1, 1.02, 1],
-              filter: [
-                'brightness(1) saturate(1)',
-                'brightness(1.1) saturate(1.2)',
-                'brightness(1) saturate(1)',
-              ],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
           />
         </motion.div>
 

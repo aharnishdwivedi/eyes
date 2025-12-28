@@ -10,6 +10,17 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     overflow-x: hidden;
   }
+  
+  /* Performance optimizations */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* GPU acceleration for animations */
+  [class*="motion"] {
+    will-change: transform, opacity;
+  }
 }
 
 @layer utilities {
@@ -27,5 +38,33 @@
   
   .glow-purple {
     box-shadow: 0 0 20px rgba(221, 160, 221, 0.5);
+  }
+  
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Optimize animations */
+  .will-change-transform {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  .will-change-contents {
+    will-change: contents;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

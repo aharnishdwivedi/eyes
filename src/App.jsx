@@ -9,10 +9,29 @@ import FinalSection from './components/FinalSection';
 import Footer from './components/Footer';
 import MusicPlayer from './components/MusicPlayer';
 import FloatingHearts from './components/FloatingHearts';
+import FloatingRoses from './components/FloatingRoses';
+import Glitter from './components/Glitter';
 
 function App() {
   const [bgColor, setBgColor] = useState('from-pink-100 via-purple-50 to-pink-50');
   const [easterEggTaps, setEasterEggTaps] = useState(0);
+
+  // Scroll to top on mount and refresh
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    window.history.scrollRestoration = 'manual';
+    
+    // Also scroll to top when page is loaded/refreshed
+    const handleLoad = () => {
+      window.scrollTo(0, 0);
+    };
+    
+    window.addEventListener('load', handleLoad);
+    
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
 
   useEffect(() => {
     // Random easter egg on background clicks
@@ -41,8 +60,10 @@ function App() {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${bgColor} transition-colors duration-1000`}>
-      <FloatingHearts count={8} />
+    <div className={`min-h-screen bg-gradient-to-br ${bgColor} transition-colors duration-1000 relative overflow-hidden`}>
+      <FloatingHearts count={5} />
+      <FloatingRoses count={3} />
+      <Glitter count={20} />
       <MusicPlayer />
       
       <motion.main

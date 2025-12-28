@@ -138,6 +138,45 @@ const UsMemories = () => {
         >
           Tap the cards to reveal our memories 💕
         </motion.p>
+
+        {/* Special Message from Cutu */}
+        <motion.div
+          className="mt-12 md:mt-16 px-4 max-w-3xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1.2, duration: 1.2 }}
+        >
+          <motion.div
+            className="glass-effect rounded-3xl p-6 md:p-8 lg:p-10 bg-gradient-to-br from-pink-200/80 via-purple-200/80 to-pink-100/80 backdrop-blur-lg border-2 border-white/40 shadow-2xl"
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
+            <motion.p
+              className="text-lg md:text-xl lg:text-2xl text-purple-800 font-medium leading-relaxed text-center"
+              animate={{
+                textShadow: [
+                  '0 0 10px rgba(255, 182, 193, 0.3)',
+                  '0 0 15px rgba(221, 160, 221, 0.5)',
+                  '0 0 10px rgba(255, 182, 193, 0.3)',
+                ],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              Urvashi, remember if everyone is against you then I am against everyone. 
+              <br className="hidden md:block" />
+              You will always have me beside you.
+              <br />
+              <span className="text-2xl md:text-3xl font-bold text-gradient mt-2 block">
+                Your truly, Cutu 💕
+              </span>
+            </motion.p>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
